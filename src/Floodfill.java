@@ -26,75 +26,33 @@ public class Floodfill {
         row = Integer.parseInt(row1);
         col = Integer.parseInt(col1);
 
-
-
-//        for(int i = 0; i < shape[0].length; i++) {
-//            startFound = false;
-//            for(int x = 0; x < shape.length; x++) {
-//                if(shape[x][i] == '*' && !startFound) {
-//                    sStarsRow.add(i + 1);
-//                    sStarsCol.add(x + 1);
-//                    startFound = true;
-//                }
-//            }
-//        } //Makes arraylist of starting stars
-//        for(int i = 0; i < shape[0].length; i++) {
-//            for(int x = 0; x < shape.length; x++) {
-//                if(shape[x][i] == '*') {
-//                    //sStarsRow.add(i + 1);
-//                    //sStarsCol.add(x + 1);
-//                }
-//            }
-//        } //Makes arraylist of ending stars (WIP)
         inside = isInside(shape, row, col);
         floodFill(shape, inside, 1, 1);
-        System.out.print(inside);
+        System.out.println(inside);
 
-        for (int i = 0; i < shape[0].length; i++) {
-            for (int x = 0; x < shape.length; x++) {
-                System.out.print(filledShape[x][i]);
+
+
+        for (int r = 0; r < shape.length; r++) {
+            for (int c = 0; c < shape[0].length; c++) {
+                System.out.print(shape[r][c]);
             }
             System.out.println("");
-
         }
-//            if (shape[row - 1][col - 1] != '*') { // - 1 to account for index starting at 0 | determines if index is inside the shape
-//                int distanceToLeft = row - 1;
-//                int distanceToRight = shape[0].length - row;
-//                int starCounterL = 0, starCounterR = 0;
-//
-//                for (int i = row - 1; i >= 0; i--) {
-//                    if (shape[i][col] == '*')
-//                        starCounterL++;
-//                }
-//                for (int i = row - 1; i <= shape[0].length; i++) {
-//                    if (shape[i][col] == '*')
-//                        starCounterR++;
-//                }
-//                if (starCounterL > 0 && starCounterR > 0) {
-//                    inside = true;
-//                }
-//
-//                for (int i = 0; i < shape[0].length; i++) {
-//                    for (int x = 0; x < shape.length; x++) {
-//                        System.out.print(shape[x][i]);
-//                    }
-//                    System.out.println("");
-//                }
-//                System.out.print("inside: " + inside);
-//            } //
     }
 
         public static void floodFill (char[][] shape, boolean fillInside, int row, int col) {
-            System.out.println("pointer at " + row + " " + col);
-            boolean inside = isInside(shape, row, col);
-            if (col >= shape[0].length) {
+            if (col >= shape[0].length || row >= shape.length) {
                 return;
-            } else {
+            }
+            else {
+                System.out.println("pointer at " + row + " " + col);
+
+                boolean inside = isInside(shape, row, col);
                 if (fillInside && inside) {
-                    shape[row][col] = '*';
+                    shape[row - 1][col - 1] = '*';
                 }
                 if (!fillInside && !inside) {
-                    shape[row][col] = '*';
+                    shape[row - 1][col - 1] = '*';
                 }
                 floodFill(shape, inside, row, col + 1);
                 floodFill(shape, inside, row + 1, col);
@@ -105,16 +63,16 @@ public class Floodfill {
 
         public static boolean isInside (char[][] shape, int row, int col){
             if (shape[row - 1][col - 1] != '*') { // - 1 to account for index starting at 0 | determines if index is inside the shape
-                int distanceToLeft = row - 1;
-                int distanceToRight = shape[0].length - row;
+                int distanceToLeft = col - 1;
+                int distanceToRight = shape[0].length - col;
                 int starCounterL = 0, starCounterR = 0;
 
-                for (int i = row - 1; i >= 0; i--) {
-                    if (shape[i][col] == '*')
+                for (int i = col - 1; i >= 0; i--) {
+                    if (shape[row - 1][i] == '*')
                         starCounterL++;
                 }
-                for (int i = row - 1; i <= shape[0].length; i++) {
-                    if (shape[i][col] == '*')
+                for (int i = col - 1; i < shape[0].length; i++) {
+                    if (shape[row - 1][i] == '*')
                         starCounterR++;
                 }
                 if (starCounterL > 0 && starCounterR > 0) {
