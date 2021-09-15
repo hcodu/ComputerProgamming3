@@ -1,3 +1,5 @@
+package Floodfill;
+
 import javax.swing.*;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -12,10 +14,6 @@ public class Floodfill {
         boolean inside = false;
         boolean startFound = false;
         char[][] shape;
-        ArrayList<Integer> sStarsRow = new ArrayList<Integer>();
-        ArrayList<Integer> sStarsCol = new ArrayList<Integer>();
-        ArrayList<Integer> eStarsRow = new ArrayList<Integer>();
-        ArrayList<Integer> eStarsCol = new ArrayList<Integer>();
 
         shape = readIn();
         String row1, col1;
@@ -27,35 +25,64 @@ public class Floodfill {
         col = Integer.parseInt(col1);
 
         inside = isInside(shape, row, col);
-        floodFill(shape, inside, 1, 1);
+        floodFill(shape, true, 3, 1);
         System.out.println(inside);
+
 
 
 
         for (int r = 0; r < shape.length; r++) {
             for (int c = 0; c < shape[0].length; c++) {
-                System.out.print(shape[r][c]);
+                System.out.print(filledShape[r][c]);
             }
             System.out.println("");
         }
     }
 
         public static void floodFill (char[][] shape, boolean fillInside, int row, int col) {
+            boolean inside = isInside(shape, row, col);
             if (col >= shape[0].length || row >= shape.length) {
+                if(fillInside) { //User point is inside
+                    if(inside) { //Point is inside
+                        shape[row - 1][col - 1] = '*';
+                        System.out.println(row + " " + col + " is inside:" + inside + "1");
+                    }
+                    else {
+                        System.out.println(row + " " + col + " is inside:" + inside + "2");
+                    }
+                }
+                if(!fillInside) {
+                    if(!inside) {
+                        shape[row - 1][col - 1] = '*';
+                        System.out.println(row + " " + col + " is inside:" + inside + "3");
+                    }
+                    else {
+                        System.out.println(row + " " + col + " is inside:" + inside + "4");
+                    }
+                }
                 return;
             }
             else {
-                System.out.println("pointer at " + row + " " + col);
-
-                boolean inside = isInside(shape, row, col);
-                if (fillInside && inside) {
-                    shape[row - 1][col - 1] = '*';
+                if(fillInside) {
+                    if(inside) {
+                        shape[row - 1][col - 1] = '*';
+                        System.out.println(row + " " + col + " is inside:" + inside + "5");
+                    }
+                    else {
+                        System.out.println(row + " " + col + " is inside:" + inside + "6");
+                    }
                 }
-                if (!fillInside && !inside) {
-                    shape[row - 1][col - 1] = '*';
+                if(!fillInside) {
+                    if(!inside) {
+                        shape[row - 1][col - 1] = '*';
+                        System.out.println(row + " " + col + " is inside:" + inside + "7");
+                    }
+                    else {
+                        System.out.println(row + " " + col + " is inside:" + inside + "8");
+                    }
                 }
-                floodFill(shape, inside, row, col + 1);
-                floodFill(shape, inside, row + 1, col);
+                floodFill(shape, fillInside, row, col + 1);
+                floodFill(shape, fillInside, row + 1, col);
             }
             filledShape = shape;
 
@@ -113,6 +140,4 @@ public class Floodfill {
 
             return null;
         }
-
-
 }
