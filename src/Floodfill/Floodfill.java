@@ -13,8 +13,8 @@ public class Floodfill {
     public static void main(String[] args) {
         boolean inside = false;
         boolean startFound = false;
-        char[][] shape = readIn("shape.txt");
-        ogShape = readIn("shape.txt");
+        char[][] shape = readIn("shape.txt"); //I added a string parameter to pass the file name opposed to typing it every time
+        ogShape = readIn("shape.txt"); //I added a string parameter to pass the file name opposed to typing it every time
 
         String row1, col1;
         int row, col;
@@ -25,16 +25,14 @@ public class Floodfill {
 
         inside = isInside(ogShape, row, col);
 
-        if(shape[row - 1][col - 1] == '*') {
-            System.out.print(ogShape[row][col]);
-        }
-        else if(shape[row - 1][col - 1] == '_') {
+
+        if(shape[row - 1][col - 1] != '*') {
             floodFill(shape, ogShape, inside, 1, 1);
         }
 
         System.out.println(inside);
 
-        for (int r = 0; r < shape.length; r++) {
+        for (int r = 0; r < shape.length; r++) { //Prints array
             for (int c = 0; c < shape[0].length; c++) {
                 System.out.print(shape[r][c]);
             }
@@ -43,36 +41,33 @@ public class Floodfill {
     }
 
     public static void floodFill (char[][] shape, char[][] ogShape, boolean fillInside, int row, int col) {
-            boolean inside = isInside(ogShape, row, col);
-            if (col >= shape[0].length || row >= shape.length) {
+            boolean inside = isInside(ogShape, row, col); //determines if pointer is in or out of shape
+            if (col >= shape[0].length || row >= shape.length) { //End condition, either bound of the array
                 if(fillInside) { //User point is inside
-                    if(inside) { //Point is inside
+                    if(inside) { //Pointer is inside
                         shape[row - 1][col - 1] = '*';
                     }
                 }
-                if(!fillInside) {
-                    if(!inside) {
+                if(!fillInside) { //User point is outside
+                    if(!inside) { //Pointer is outside
                         shape[row - 1][col - 1] = '*';
-                        //System.out.println(row + " " + col + " is inside:" + inside + "3");
                     }
                 }
                 return;
             }
             else {
-                if(fillInside) {
-                    if(inside) {
+                if(fillInside) { //User point is inside
+                    if(inside) { //Pointer is inside
                         shape[row - 1][col - 1] = '*';
-                        //System.out.println(row + " " + col + " is inside:" + inside + "5");
                     }
                 }
-                if(!fillInside) {
-                    if(!inside) {
+                if(!fillInside) { //User point is outside
+                    if(!inside) { //Pointer is outside
                         shape[row - 1][col - 1] = '*';
-                        //System.out.println(row + " " + col + " is inside:" + inside + "7");
                     }
                 }
-                floodFill(shape, ogShape, fillInside, row, col + 1);
-                floodFill(shape, ogShape, fillInside, row + 1, col);
+                floodFill(shape, ogShape, fillInside, row, col + 1); //Recurs moving pointer one to the right
+                floodFill(shape, ogShape, fillInside, row + 1, col); //Recurs moving pointer one down
             }
         }
 
@@ -82,16 +77,15 @@ public class Floodfill {
                 int distanceToRight = shape[0].length - col;
                 int starCounterL = 0, starCounterR = 0;
 
-                for (int i = col - 1; i >= 0; i--) {
+                for (int i = col - 1; i >= 0; i--) { //Goes from point to left bound, counting stars
                     if (shape[row - 1][i] == '*')
                         starCounterL++;
                 }
-                for (int i = col - 1; i < shape[0].length; i++) {
+                for (int i = col - 1; i < shape[0].length; i++) { //Goes from point to right bound, counting stars
                     if (shape[row - 1][i] == '*')
                         starCounterR++;
                 }
-                if (starCounterL > 0 && starCounterR > 0) {
-                    //System.out.println("sL " + starCounterL + " sR " + starCounterR);
+                if (starCounterL > 0 && starCounterR > 0) { //If there is a star on both sides, the point is inside
                     return true;
                 }
             }
@@ -128,5 +122,5 @@ public class Floodfill {
             System.out.println("FloodFill: readIn(): FileNotFoundException!!");
         }
         return null;
-    }
+    } //I added a string parameter to pass the file name opposed to typing
 }
