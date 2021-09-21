@@ -16,30 +16,62 @@ public class EraseObject {
             System.out.println("");
         }
 
-        eraseObject(arr, ogArr, 1, 1);
+        eraseObject(arr, ogArr, 16, 2); //tRi work, tL works, bL works, bRi works
+
     }
 
     public static void eraseObject(char[][] arr, char[][] og, int row, int col) {
-        int r1, c1;
+        int r1, c1; //User inputs starting at 1, java starts at 0
         r1 = row - 1;
         c1 = col - 1;
-        if((r1 == arr.length)) { //If on the bottom row
-            if(c1 == 0 && (arr[r1 - 1][c1] == '_' && arr[r1][c1 + 1] == '_')) { //Checks bottom left corner and above and right are blank, return
+
+        //Base cases, checks border, returns if all surrounding are _
+        if((r1 == arr.length - 1)) { //If on the bottom row
+            if(c1 == 0 && (arr[r1 - 1][c1] == '_' && arr[r1][c1 + 1] == '_')) {//Checks bottom left corner and above and right are blank, returns if all _
+                System.out.print("terminated1");
                 return;
             }
-            if(c1 == arr.length && (arr[r1][c1 - 1] == '_' && arr[r1 - 1][c1] == '_')) { //Checks bottom right corner and above and left are blank, return
+            else if(c1 == arr.length - 1 && (arr[r1][c1 - 1] == '_' && arr[r1 - 1][c1] == '_')) { //Checks bottom right corner and above and left are blank, returns if all _
+                System.out.print("terminated2");
                 return;
             }
+            else if(arr[r1][c1 - 1] == '_' && arr[r1][c1 + 1] == '_' && arr[r1 - 1][c1] == '_') { //Checks bottom row above, to the left and right, returns if all _
+                System.out.print("terminated3");
+                return;
+            }
+            System.out.print("Test");
         }
-        if((r1 == 0)) {
-            if(c1 == 0 && (arr[r1 + 1][c1] == '_' && arr[r1][c1 + 1] == '_')) { //Checks top left corner below and to the right, return
+        else if((r1 == 0)) { //If on top row
+            if(c1 == 0 && (arr[r1 + 1][c1] == '_' && arr[r1][c1 + 1] == '_')) { //Checks top left corner below and to the right, returns if all _
+                System.out.print("terminated4");
                 return;
             }
-            if(c1 == arr[0].length && (arr[r1 - 1][c1] == '_' && arr[r1][c1 -1] == '_')) { //Checks top right corner below and to the left, return
+            else if(c1 == arr[0].length - 1 && (arr[r1 + 1][c1] == '_' && arr[r1][c1 -1] == '_')) { //Checks top right corner below and to the left, returns if all _
+                System.out.print("terminated5");
+                return;
+            }
+            else if(arr[r1][c1 - 1] == '_' && arr[r1][c1 + 1] == '_' && arr[r1 + 1][c1] == '_') { //Checks top row below, to the left and right, returns if all _
+                System.out.print("terminated6");
                 return;
             }
          }
-
+        else if(c1 == 0) {
+            //System.out.println(arr[r1 - 1][c1] + " " + arr[r1 + 1][c1] + arr[r1][c1 + 1]);
+            if(arr[r1 - 1][c1] == '_' && arr[r1 + 1][c1] == '_' && arr[r1][c1 + 1] == '_') { //Checks left side, above, below, to the right, returns if all _
+                System.out.print("terminated7");
+                return;
+            }
+        }
+        else if(c1 == arr[0].length -1) {
+            if(arr[r1 - 1][c1] == '_' && arr[r1 + 1][c1] == '_' && arr[r1][c1 - 1] == '_') { //Checks ride side, above, below, to the left, returns if all _
+                System.out.print("terminated8");
+                return;
+            }
+        }
+        else if(arr[r1][c1 - 1] == '_' && arr[r1][c1 + 1] == '_' && arr[r1 + 1][c1] == '_' && arr[r1 -1][c1] == '_') { //Checks all 4 directions, returns if all _
+            System.out.print("terminated 9");
+            return;
+        }
 
 
 
