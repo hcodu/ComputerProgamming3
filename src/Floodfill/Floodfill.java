@@ -16,6 +16,14 @@ public class Floodfill {
         char[][] shape = readIn("shape.txt"); //I added a string parameter to pass the file name opposed to typing it every time
         ogShape = readIn("shape.txt"); //I added a string parameter to pass the file name opposed to typing it every time
 
+        for (int r = 0; r < shape.length; r++) { //Prints array
+            for (int c = 0; c < shape[0].length; c++) {
+                System.out.print(shape[r][c]);
+            }
+            System.out.println("");
+        }
+        System.out.println("");
+
         String row1, col1;
         int row, col;
         row1 = JOptionPane.showInputDialog("Enter row");
@@ -24,6 +32,7 @@ public class Floodfill {
         col = Integer.parseInt(col1);
 
         inside = isInside(ogShape, row, col);
+
 
 
         if(shape[row - 1][col - 1] != '*') {
