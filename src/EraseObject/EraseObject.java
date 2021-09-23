@@ -14,15 +14,23 @@ public class EraseObject {
                 System.out.print(arr[r][c]);
             }
             System.out.println("");
-        }
-
-        eraseObject(arr, ogArr, 3, 2); //tRi work, tL works, bL works, bRi works
+        } //Prints array from digital.txt
+        eraseObject(arr, ogArr, 3, 2); //Erases 1st shape
         for(int r = 0; r < arr.length; r++) {
             for(int c = 0; c < arr[0].length; c++) {
                 System.out.print(arr[r][c]);
             }
             System.out.println("");
-        }
+        } //Prints array after first erasure
+        eraseObject(arr, ogArr, 10, 5); //Erases 2nd shape
+        for(int r = 0; r < arr.length; r++) {
+            for(int c = 0; c < arr[0].length; c++) {
+                System.out.print(arr[r][c]);
+            }
+            System.out.println("");
+        } //Prints array after second erasure
+
+
 
     }
 
@@ -73,8 +81,15 @@ public class EraseObject {
                 return;
             }
         }
+        else if(arr[r1][c1] == '@' && (arr[r1][c1 - 1] == '_' && arr[r1][c1 + 1] == '_' && arr[r1 + 1][c1] == '_' && arr[r1 -1][c1] == '_')) { //If pointer is '@' Checks all 4 directions, recurs all 4 if all _
+            arr[r1][c1] = '_';
+            eraseObject(arr, og, row, col + 1); //Recurs one to the right
+            eraseObject(arr, og, row, col - 1); //Recurs one to the left
+            eraseObject(arr, og, row + 1, col); //Recurs one below
+            eraseObject(arr, og, row - 1, col); //Recurs one above
+        }
         else if(og[r1][c1 - 1] == '_' && og[r1][c1 + 1] == '_' && og[r1 + 1][c1] == '_' && og[r1 -1][c1] == '_') { //Checks all 4 directions, returns if all _
-            System.out.print("terminated 9");
+            System.out.println("terminated 9");
             return;
         }
 
@@ -83,66 +98,67 @@ public class EraseObject {
             if((r1 == arr.length - 1)) { //If on bottom row
                 if(c1 == 0 && (og[r1 - 1][c1] == '@' || og[r1][c1 + 1] == '@')) {//Checks bottom left corner and above and right are blank, returns if all _
                     arr[r1][c1] = '_';
-                    eraseObject(arr, og, row - 1, col);
-                    eraseObject(arr, og, row, col + 1);
+                    //eraseObject(arr, og, row - 1, col);
+                    eraseObject(arr, og, row, col + 1); //Recurs one to the left
                 }
                 else if(c1 == arr.length - 1 && (og[r1][c1 - 1] == '@' || og[r1 - 1][c1] == '@')) { //Checks bottom right corner and above and left are blank, returns if all _
                    arr[r1][c1] = '_';
-                   eraseObject(arr, og, row - 1, col);
-                   eraseObject(arr, og, row, col - 1);
+                   //eraseObject(arr, og, row - 1, col);
+                   //eraseObject(arr, og, row, col - 1);
+                    return; //Returns
                 }
                 else if(og[r1][c1 - 1] == '@' || og[r1][c1 + 1] == '@' || og[r1 - 1][c1] == '@') { //Checks bottom row above, to the left and right, returns if all _
                     arr[r1][c1] = '_';
-                    eraseObject(arr, og, row - 1, col);
-                    eraseObject(arr, og, row, col - 1);
-                    eraseObject(arr, og, row, col + 1);
+                    //eraseObject(arr, og, row - 1, col);
+                    //eraseObject(arr, og, row, col - 1);
+                    eraseObject(arr, og, row, col + 1); //Recurs one to the right
                 }
             }
 
             else if((r1 == 0)) { //If on top row
                 if(c1 == 0 && (og[r1 + 1][c1] == '@' || og[r1][c1 + 1] == '@')) { //Checks top left corner below and to the right, returns if all _
                     arr[r1][c1] = '_';
-                    eraseObject(arr, og, row + 1, col);
-                    eraseObject(arr, og, row, col + 1);
+                    eraseObject(arr, og, row + 1, col); //Recurs one below
+                    eraseObject(arr, og, row, col + 1); //Recurs one right
                 }
                 else if(c1 == arr[0].length - 1 && (og[r1 + 1][c1] == '@' || og[r1][c1 -1] == '@')) { //Checks top right corner below and to the left, returns if all _
                     arr[r1][c1] = '_';
-                    eraseObject(arr, og, row - 1, col);
-                    eraseObject(arr, og, row, col - 1);
+                    eraseObject(arr, og, row + 1, col); //Recurs one below
+                    //eraseObject(arr, og, row, col - 1);
                 }
                 else if(og[r1][c1 - 1] == '@' || og[r1][c1 + 1] == '@' || og[r1 + 1][c1] == '@') { //Checks top row below, to the left and right, returns if all _
                     arr[r1][c1] = '_';
-                    eraseObject(arr, og, row + 1, col);
-                    eraseObject(arr, og, row, col + 1);
-                    eraseObject(arr, og, row, col - 1);
+                    eraseObject(arr, og, row + 1, col); //Recurs one below
+                    eraseObject(arr, og, row, col + 1); //Recurs one right
+                    //eraseObject(arr, og, row, col - 1);
                 }
             }
 
             else if(c1 == 0) { //If on left side
                 if(og[r1 - 1][c1] == '@' || og[r1 + 1][c1] == '@' || og[r1][c1 + 1] == '@') { //Checks left side, above, below, to the right, recurs if all @
                     arr[r1][c1] = '_';
-                    eraseObject(arr, og, row - 1, col);
-                    eraseObject(arr, og, row + 1, col);
-                    eraseObject(arr, og, row, col + 1);
+                    //eraseObject(arr, og, row - 1, col);
+                    eraseObject(arr, og, row + 1, col); //Recurs one below
+                    eraseObject(arr, og, row, col + 1); //Recurs one right
                 }
             }
 
             else if(c1 == arr[0].length - 1) { //If on right side
                 if(og[r1 - 1][c1] == '@' || og[r1 + 1][c1] == '@' || og[r1][c1 - 1] == '@') { //Checks ride side, above, below, to the left, returns if all _
                     arr[r1][c1] = '_';
-                    eraseObject(arr, og, row - 1, col);
-                    eraseObject(arr, og, row + 1, col);
-                    eraseObject(arr, og, row, col - 1);
+                    //eraseObject(arr, og, row - 1, col);
+                    eraseObject(arr, og, row + 1, col); //Recurs one below
+                    //eraseObject(arr, og, row, col - 1);
                 }
             }
 
-            else if(og[r1][c1 - 1] == '@' || og[r1][c1 + 1] == '@' || og[r1 + 1][c1] == '@' || og[r1 -1][c1] == '@') { //Checks all 4 directions, returns if all _
+            else if(arr[r1][c1 - 1] == '@' || arr[r1][c1 + 1] == '@' || arr[r1 + 1][c1] == '@' || arr[r1 -1][c1] == '@') { //Checks all 4 directions, returns if all _
                 arr[r1][c1] = '_';
                 System.out.println("pointer at " + r1 + " , " + c1);
-                eraseObject(arr, og, row, col + 1); //Recurs one to the right
-                eraseObject(arr, og, row, col - 1); //Recurs one to the left
-                eraseObject(arr, og, row + 1, col); //Recurs one below
-                eraseObject(arr, og, row - 1, col); //Recurs one above
+                eraseObject(arr, arr, row, col + 1); //Recurs one to the right
+                eraseObject(arr, arr, row, col - 1); //Recurs one to the left
+                eraseObject(arr, arr, row + 1, col); //Recurs one below
+                eraseObject(arr, arr, row - 1, col); //Recurs one above
             }
         }
     }
