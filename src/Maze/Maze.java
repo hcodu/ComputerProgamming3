@@ -8,6 +8,8 @@ public class Maze {
     public static void main(String[] args) {
         char[][] maze = readIn("mazeData.txt");
         display(maze);
+
+        findExit(maze, 5, 5);
     }
     public static char[][] readIn(String fileName) {
         char[][] picture;
@@ -44,16 +46,32 @@ public class Maze {
     public static void display(char[][] arr) {
         for(int r = 0; r < arr.length; r++) {
             for(int c = 0; c < arr[0].length; c++) {
-                System.out.print(arr[r][c]);
+                System.out.print(arr[r][c] + " ");
             }
             System.out.println("");
         }
+        System.out.println("");
     }
 
     public static void findExit(char[][] arr, int row, int col) {
-        if(row - 1 == 0 || row == arr.length) {
+        //Base cases
+        if(row - 1 == 0 || row == arr.length) { //If on top or bottom (exit found), display arr
+            display(arr);
             return;
         }
+        if (arr[row][col] == '*') {
+            return;
+        }
+        if(arr[row][col] == '_') {
+            arr[row][col] = '!';
+            findExit(arr, row + 1, col);
+            findExit(arr, row - 1, col);
+            findExit(arr, row, col + 1);
+            findExit(arr, row, col - 1);
+        }
+
+
+
     }
 
 }
