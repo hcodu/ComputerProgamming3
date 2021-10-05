@@ -26,7 +26,7 @@ public class Maze {
 
             for(int r = 0; r < picture.length; r++)
                 for(int c = 0; c < picture[0].length; c++)
-                    picture[r][c] = '_';
+                    picture[r][c] = ' ';
 
             while (file.hasNext()) {
                 row = file.nextInt();
@@ -55,22 +55,37 @@ public class Maze {
 
     public static void findExit(char[][] arr, int row, int col) {
         //Base cases
-        if(row - 1 == 0 || row == arr.length) { //If on top or bottom (exit found), display arr
-            display(arr);
-            return;
-        }
-        if (arr[row][col] == '*') {
-            return;
-        }
-        if(arr[row][col] == '_') {
-            arr[row][col] = '!';
-            findExit(arr, row + 1, col);
-            findExit(arr, row - 1, col);
-            findExit(arr, row, col + 1);
-            findExit(arr, row, col - 1);
-        }
+        if(arr[row][col] == ' ') {
+            char[][] newArr = new char[arr.length][arr[0].length];
 
+            for(int r = 0; r < arr.length; r++) {
+                for(int c = 0; c < arr[0].length; c++) {
+                    newArr[r][c] = arr[r][c];
+                }
+            }
 
+            newArr[row][col] = '!';
+
+            if(row > 0) {
+                findExit(newArr, row - 1, col);
+            }
+            if(row < arr.length - 1) {
+                findExit(newArr, row + 1, col);
+            }
+            if(col > 0) {
+                findExit(newArr, row, col - 1);
+            }
+            if(col < arr[row].length - 1) {
+                findExit(newArr, row, col + 1);
+            }
+
+            if(row == 0 || row == arr.length - 1 || col == 0 || col == arr[0].length - 1) {
+                display(newArr);
+                System.out.println("");
+            }
+
+        }
+        return;
 
     }
 
