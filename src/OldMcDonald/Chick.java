@@ -19,12 +19,14 @@ public class Chick implements Animal{
 
     public String getSound() {
         if(mySound2 != null) {
-            Random r = new Random(1);
-            if(r.nextInt() == 0) {
+            if(Math.random() > 0.5) {
                 return mySound1;
             }
+            else {
+                return mySound2;
+            }
         }
-        return mySound2;
+        return mySound1;
     }
 
     public String getType() {
