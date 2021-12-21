@@ -7,6 +7,7 @@ public class DListDemo {
         DoublyLinkedList dList = new DoublyLinkedList();
         System.out.println("Is Empty?: " + dList.isEmpty() + "\nLength: " + dList.length() + "\n\n");
 
+        System.out.println("test");
         // Add elements in the back - Uses DList.insertBefore()
         dList.insertBack("First Element");
         dList.insertBack("Second Element");
@@ -14,7 +15,10 @@ public class DListDemo {
         dList.insertBack("Fourth Element");
         dList.insertBack("Fifth Element");
         System.out.println(dList.toString() + "\nIs Empty?: " + dList.isEmpty() + "\nLength: " + dList.length() + "\n");
+        System.out.println("test");
 
+
+        System.out.println("test");
 
         // Add elements in the front - Uses DList.insertAfter()
         dList.insertFront("Front Element 3");
@@ -26,10 +30,12 @@ public class DListDemo {
         System.out.print(dList.head.next.next.getValue() + " !!");
         dList.remove(dList.head.next.next);
         System.out.println(dList.toString() + "\nIs Empty?: " + dList.isEmpty() + "\nLength: " + dList.length() + "\n");
+        System.out.println("test");
 
         // Remove element 2 Again
         dList.remove(dList.head.next.next);
         System.out.println(dList.toString() + "\nIs Empty?: " + dList.isEmpty() + "\nLength: " + dList.length() + "\n");
+        System.out.println("test");
 
         // Print Front element item
         System.out.println(dList.front().getValue());

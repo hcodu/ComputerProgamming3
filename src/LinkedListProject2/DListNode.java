@@ -1,12 +1,4 @@
-/* DListNode.java */
-
 package LinkedListProject2;
-
-import LinkedListProject1.ListNode;
-
-/**
- *  A DListNode is a node in a DList (doubly-linked list).
- */
 
 public class DListNode {
 
@@ -18,32 +10,30 @@ public class DListNode {
    *  DO NOT CHANGE THE FOLLOWING FIELD DECLARATIONS.
    */
 
-  public Object value;
-  protected DListNode next;
+  public Object item;
   protected DListNode prev;
+  protected DListNode next;
 
   /**
-   *  Constructs a new element with object initValue,
-   *  followed by next element
-   *
-   * @param  initValue  New element object
-   * @param  initNext   Reference to next element
+   *  DListNode() constructor.
+   *  @param i the item to store in the node.
+   *  @param p the node previous to this node.
+   *  @param n the node following this node.
    */
-  public DListNode(Object initValue, DListNode initNext, DListNode initPrev)
-  {
-    value = initValue;
-    next = initNext;
-    prev = initPrev;
+  DListNode(Object i, DListNode p, DListNode n) {
+    item = i;
+    prev = p;
+    next = n;
   }
 
-  /**
-   *  Constructs a new tail of a list with object initValue
-   *
-   * @param  initValue  New element object
-   */
   public Object getValue() {
-    return value;
+    return item;
   }
-
+  public DListNode getNext() {
+    return next;
+  }
+  public DListNode getPrev() {
+    return prev;
+  }
 
 }
